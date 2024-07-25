@@ -17,7 +17,7 @@ public class OrderPage {
     // Поле станция метро
     private By metroField = By.xpath("//input[@placeholder='* Станция метро']");
     // Создание динамической строки для станции метро
-    private final String METRO_MENU = "//div[text()='%s']";   //как выбрать меттроо???    //input[@value= '%s'] такой вариант
+    private final String metroMenu = "//div[text()='%s']";   //как выбрать меттроо???    //input[@value= '%s'] такой вариант
     // Поле Телефон
     private By phoneField = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']");
     // Кнопка Далее
@@ -27,7 +27,7 @@ public class OrderPage {
     // Поле срок аренды
     private By timeField = By.className("Dropdown-placeholder");
     // Создание динамической строки для срока аренды
-    private final String RENT_TIME = "//div[text()='%s']";//как выбрать срок аренды???
+    private final String rentTime = "//div[text()='%s']";//как выбрать срок аренды???
     // Поле черный цвет
     private By blackColour = By.id("black");
     // Поле сервый цвет
@@ -60,7 +60,7 @@ public class OrderPage {
 
     public void inputMetroStation(String metroStation) {
         driver.findElement(metroField).click();
-        By dynamicMetroXpath = By.xpath(String.format(METRO_MENU, metroStation));
+        By dynamicMetroXpath = By.xpath(String.format(metroMenu, metroStation));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", driver.findElement(dynamicMetroXpath));
         driver.findElement(dynamicMetroXpath).click();
     }
@@ -79,7 +79,7 @@ public class OrderPage {
 
     public void inputRentTime(String time) {
         driver.findElement(timeField).click();
-        By dynamicRentTime = By.xpath(String.format(RENT_TIME, time));
+        By dynamicRentTime = By.xpath(String.format(rentTime, time));
         driver.findElement(dynamicRentTime).click();
     }
 

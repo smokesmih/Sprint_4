@@ -16,29 +16,30 @@ import static org.junit.Assert.assertTrue;
 @RunWith(Parameterized.class)
 public class OrderTest {
     private WebDriver driver;
-    private final String BUTTON_ORDER;
-    private final String NAME;
-    private final String SURNAME;
-    private final String ADDRES;
-    private final String METRO_STATION;
-    private final String PHONE;
-    private final String DATA;
-    private final String TIME;
-    private final String COLOUR;
-    private final String COMMENT;
+    private final String buttonOrder;
+    private final String name;
+    private final String surname;
+    private final String address;
+    private final String metroStation;
+    private final String phone;
+    private final String data;
+    private final String time;
+    private final String colour;
+    private final String comment;
+    private final String scooterWebsite = "https://qa-scooter.praktikum-services.ru/";
 
 
-    public OrderTest(String BUTTON_ORDER, String NAME, String SURNAME, String ADDRES, String METRO_STATION, String PHONE, String DATA, String TIME, String COLOUR, String COMMENT) {
-        this.BUTTON_ORDER = BUTTON_ORDER;
-        this.NAME = NAME;
-        this.SURNAME = SURNAME;
-        this.ADDRES = ADDRES;
-        this.METRO_STATION = METRO_STATION;
-        this.PHONE = PHONE;
-        this.DATA = DATA;
-        this.TIME = TIME;
-        this.COLOUR = COLOUR;
-        this.COMMENT = COMMENT;
+    public OrderTest(String buttonOrder, String name, String surname, String address, String metroStation, String phone, String data, String time, String colour, String comment) {
+        this.buttonOrder = buttonOrder;
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
+        this.metroStation = metroStation;
+        this.phone = phone;
+        this.data = data;
+        this.time = time;
+        this.colour = colour;
+        this.comment = comment;
     }
 
     @Parameterized.Parameters
@@ -52,7 +53,7 @@ public class OrderTest {
     @Before
     public void setup() {
         driver = new ChromeDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(scooterWebsite);
         driver.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
     }
 
@@ -60,10 +61,10 @@ public class OrderTest {
     public void checkOrder() {
         MainPage mainPage = new MainPage(driver);
         mainPage.clickCookieButton();
-        mainPage.clickOrder(BUTTON_ORDER);
+        mainPage.clickOrder(buttonOrder);
         OrderPage orderPage = new OrderPage(driver);
-        orderPage.fillFirstOrderForm(NAME, SURNAME, ADDRES, METRO_STATION, PHONE);
-        orderPage.fillSecondOrderForm(DATA, TIME, COLOUR, COMMENT);
+        orderPage.fillFirstOrderForm(name, surname, address, metroStation, phone);
+        orderPage.fillSecondOrderForm(data, time, colour, comment);
         assertTrue("Ошбика при заказе", orderPage.orderResultISDisplayed());
     }
 

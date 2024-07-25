@@ -20,9 +20,9 @@ public class MainPage {
     //Кнопка cookie
     private By cookieButton = By.xpath("//button[text()='да все привыкли']");
     //Список элементов "Вопросы о важном"
-    private final String QUESTION_XPATH = "//div[@id='accordion__heading-%s']";    // подумать как легче, %s для параметров
+    private final String questionXpath = "//div[@id='accordion__heading-%s']";    // подумать как легче, %s для параметров
     //Список ответов
-    private final String ANSWER_XPATH = "//div[contains(@id, 'accordion__panel')]/p[text()='%s']"; // подумать как легче, %s для параметров
+    private final String answerXpath = "//div[contains(@id, 'accordion__panel')]/p[text()='%s']"; // подумать как легче, %s для параметров
 
 
     public MainPage(WebDriver driver) {
@@ -46,7 +46,7 @@ public class MainPage {
     }
     //Метод кликает по нужному вопросу
     public void clickQuestion(int index) {
-        By pathQuestionDinamic = By.xpath(String.format(QUESTION_XPATH, index));
+        By pathQuestionDinamic = By.xpath(String.format(questionXpath, index));
         WebElement elementQuestion = driver.findElement(pathQuestionDinamic);
         new WebDriverWait(driver, ofSeconds(10)).until(ExpectedConditions.elementToBeClickable(elementQuestion));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", elementQuestion);
@@ -54,7 +54,7 @@ public class MainPage {
     }
     //Метод получает ответ
     public boolean answerIsDisplayed(String answer) {
-        WebElement element = driver.findElement(By.xpath(String.format(ANSWER_XPATH, answer)));
+        WebElement element = driver.findElement(By.xpath(String.format(answerXpath, answer)));
         return element.isDisplayed();
     }
     //Метод нажимае верхнюю или нижнюю кнопку заказа, в зависимости от переданного аргумента
